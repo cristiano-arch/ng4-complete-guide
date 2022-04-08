@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'shopinho-project'`, () => {
+  it(`should have as title 'ng4-complete-guide'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('shopinho-project');
+    expect(app.title).toEqual('ng4-complete-guide');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('shopinho-project app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('ng4-complete-guide app is running!');
   });
 });
