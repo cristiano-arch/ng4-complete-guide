@@ -21,4 +21,5 @@ export class ShoppingListComponent implements OnInit {
       }
     );
   }
+  
 }
