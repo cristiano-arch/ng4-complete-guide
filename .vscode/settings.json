@@ -1,23 +1,3 @@
 {
-    "angular.enable-strict-mode-prompt": false,
-    "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#51eb78",
-        "activityBar.activeBorder": "#9070ef",
-        "activityBar.background": "#51eb78",
-        "activityBar.foreground": "#15202b",
-        "activityBar.inactiveForeground": "#15202b99",
-        "activityBarBadge.background": "#9070ef",
-        "activityBarBadge.foreground": "#15202b",
-        "sash.hoverBorder": "#51eb78",
-        "statusBar.background": "#23e655",
-        "statusBar.foreground": "#15202b",
-        "statusBarItem.hoverBackground": "#16c042",
-        "statusBarItem.remoteBackground": "#23e655",
-        "statusBarItem.remoteForeground": "#15202b",
-        "titleBar.activeBackground": "#23e655",
-        "titleBar.activeForeground": "#15202b",
-        "titleBar.inactiveBackground": "#23e65599",
-        "titleBar.inactiveForeground": "#15202b99"
-    },
-    "peacock.color": "#23e655"
+    "angular.enable-strict-mode-prompt": false
 }
