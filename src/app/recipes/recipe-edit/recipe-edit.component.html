@@ -44,7 +44,7 @@
 
         <div class="row">
           <div class="col-xs-12" formArrayName="ingredients">
-            <div class="row" *ngFor="let ingredientCtrl of getControls(); let i = index" [formGroupName]="i">
+            <div class="row" *ngFor="let ingredientCtrl of getControls(); let i = index" [formGroupName]="i" style="margin-top: 10px; margin-bottom: 10px;">
 
               <div class="col-xs-8">
                 <input type="text" class="form-control" formControlName="name">
@@ -60,8 +60,14 @@
 
             </div>
           </div>
-        </div>
 
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
+            </div>
+          </div>
+
+        </div>
     </form>
   </div>
 </div>
