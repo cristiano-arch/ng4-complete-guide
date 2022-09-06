@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, throwError } from "rxjs";
+import { catchError, Subject, tap, throwError } from "rxjs";
+import { User } from "./user.model";
 
 export interface AuthResponseData {
   kind: string,
@@ -13,34 +14,72 @@ export interface AuthResponseData {
 }
 
 /* DO NOT EXPOSE YOUR Web API Key HERE!!! BECAUSE THIS IS A PUBLIC REPOSITORY ON GITHUB!!! */
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
+
+  user = new Subject<User>();
 
   constructor(private httpClient: HttpClient) {}
 
   signup(email: string, password: string) {
-    return this.httpClient.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }
-    ).pipe(catchError(this.handleError));
+    return this.httpClient
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap((resData) => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
+      );
   }
 
-  login (email: string, password: string) {
-    return this.httpClient.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]',
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }
-    ).pipe(catchError(this.handleError));
+  login(email: string, password: string) {
+    return this.httpClient
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]',
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      )
+      .pipe(
+        catchError(this.handleError),
+        tap((resData) => {
+          this.handleAuthentication(
+            resData.email,
+            resData.localId,
+            resData.idToken,
+            +resData.expiresIn
+          );
+        })
+      );
   }
 
-  private handleError (errorRes: HttpErrorResponse) {
+  private handleAuthentication(
+    email: string,
+    userId: string,
+    token: string,
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+
+    const user = new User(email, userId, token, expirationDate);
+    this.user.next(user);
+  }
+
+  private handleError(errorRes: HttpErrorResponse) {
     let errorMessage = 'An unknown error occurred!';
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
@@ -53,9 +92,8 @@ export class AuthService {
         errorMessage = 'This email does not exists.';
         break;
       case 'INVALID_PASSWORD':
-        errorMessage = 'This password is not correct.'
+        errorMessage = 'This password is not correct.';
     }
     return throwError(errorMessage);
   }
-
 }
