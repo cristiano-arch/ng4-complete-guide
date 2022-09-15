@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
 import { User } from "./user.model";
 
@@ -16,10 +17,12 @@ export interface AuthResponseData {
 /* DO NOT EXPOSE YOUR Web API Key HERE!!! BECAUSE THIS IS A PUBLIC REPOSITORY ON GITHUB!!! */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
   user = new BehaviorSubject<User>(null);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router
+    ) {}
 
   signup(email: string, password: string) {
     return this.httpClient
@@ -96,4 +99,10 @@ export class AuthService {
     }
     return throwError(errorMessage);
   }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+  }
+
 }
