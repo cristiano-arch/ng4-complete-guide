@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { map, pipe, Subscription } from "rxjs";
+import { map, Subscription } from "rxjs";
 import { AuthService } from "../auth/auth.service";
+import * as AuthActions from '../auth/store/auth.actions';
 import { DataStorageService } from "../shared/data-storage.service";
 import * as fromApp from '../store/app.reducer';
 
@@ -55,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogout() {
-    this.authService.logout();
+    // this.authService.logout();
+    this.store.dispatch(new AuthActions.Logout());
   }
 }
