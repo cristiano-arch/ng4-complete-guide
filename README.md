@@ -2,6 +2,8 @@
 
 ### Professor [@mschwarzmueller](https://github.com/mschwarzmueller)
 
+App Deployment Hosting URL - [ng4-complete-guide](https://ng4-complete-guide-37479.web.app/auth)
+
 ---
 
 - 🥅 Goals: I decided to start this course because when i got a job i was always running out of time to do whatever and consequently i didn't have much time to continue my english studies... So by doing this course i was able to practice my english skills while learning a new useful framework! For this to be possible i had to watch all classes without the help of any captions!
