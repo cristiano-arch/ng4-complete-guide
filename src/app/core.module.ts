@@ -13,6 +13,7 @@ import { ShoppingListService } from "./shopping-list/shopping-list.service";
     // LoggingService
   ]
 })
+
 export class CoreModule {
 
 }
