@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AuthEffects } from './auth/store/auth.effects';
 import { CoreModule } from './core.module';
 import { HeaderComponent } from './header/header.component';
+import { LoggingService } from './logging.service';
 import { RecipeEffects } from './recipes/store/recipe.effects';
 import { SharedModule } from './shared/shared.module';
 import * as fromApp from './store/app.reducer';
@@ -30,5 +31,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     StoreRouterConnectingModule.forRoot()
   ],
   bootstrap: [AppComponent],
+  // providers: [LoggingService]
 })
 export class AppModule {}
